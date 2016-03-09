@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308202823) do
+ActiveRecord::Schema.define(version: 20160309120612) do
 
   create_table "grades", force: :cascade do |t|
     t.string   "assignment_name"
@@ -23,8 +23,7 @@ ActiveRecord::Schema.define(version: 20160308202823) do
   end
 
   create_table "parents", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "name"
     t.string   "student_id"
     t.string   "email"
     t.string   "password_digest"
@@ -33,8 +32,7 @@ ActiveRecord::Schema.define(version: 20160308202823) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "name"
     t.integer  "teacher_id"
     t.string   "email"
     t.string   "password_digest"
@@ -43,8 +41,7 @@ ActiveRecord::Schema.define(version: 20160308202823) do
   end
 
   create_table "teachers", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "name"
     t.string   "email"
     t.string   "password_digest"
     t.datetime "created_at",      null: false

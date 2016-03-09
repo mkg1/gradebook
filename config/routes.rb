@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :teachers
+  resources :students
+  resources :parents
   get 'authenticate/login'
   post 'authenticate/login'
   get 'authenticate/logout'

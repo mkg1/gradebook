@@ -7,3 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Teacher.create(name: "Betsy Deitz", email: "b@b.com", password: "pw1")
+Teacher.create(name: "Bob Smith", email: "bob@b.com", password: "monkey")

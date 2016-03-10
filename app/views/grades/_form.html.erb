@@ -21,7 +21,11 @@
   </div>
   <div class="field">
     <%= f.label :student_id %><br>
-    <%= f.number_field :student_id %>
+    <% if params[:student_id]%>
+    <%= f.number_field :student_id, readonly: true %>
+    <% else %>
+    <%= f.number_field :student_id%>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :date %><br>

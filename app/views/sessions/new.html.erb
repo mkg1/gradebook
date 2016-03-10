@@ -1,0 +1,23 @@
+<p id="alert"><%= alert %></p>
+
+<h1>Login</h1>
+<p>Please login below.</p>
+
+<%= form_tag(login_path) do %>
+
+  <p>What type of user are you?</p>
+  <%= radio_button_tag(:user_type, "Teacher") %>
+  <%= label_tag(:user_type_teacher, "I am a teacher") %></br>
+  <%= radio_button_tag(:user_type, "Parent") %>
+  <%= label_tag(:user_type_parent, "I am a parent") %></br>
+  <%= radio_button_tag(:user_type, "Student") %>
+  <%= label_tag(:user_type_student, "I am a student") %></br>
+
+  <p><%= label_tag :email %>
+  <%= email_field_tag :email %></p>
+
+  <p><%= label_tag :password %>
+  <%= password_field_tag :password %></p>
+
+  <%= submit_tag "Log in" %>
+<% end %>

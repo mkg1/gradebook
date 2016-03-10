@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Name:</strong>
@@ -7,7 +6,7 @@
 
 <p>
   <strong>Teacher:</strong>
-  <%= @student.teacher_id %>
+  <%= @student.teacher.name %>
 </p>
 
 <p>
@@ -15,10 +14,8 @@
   <%= @student.email %>
 </p>
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @student.password_digest %>
-</p>
+<%= link_to "Add another parent/guardian for #{@student.name}", new_parent_path(student_id: @student.id) %></br>
+<%= link_to "Enter another grade for #{@student.name}", new_grade_path(student_id: @student.id) %></br>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>

@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
+  root 'grades#index'
+
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+
   resources :teachers
   resources :students
   resources :parents
-  get 'authenticate/login'
-  post 'authenticate/login'
-  get 'authenticate/logout'
-
-  root 'authenticate#login'
+  resources :sessions, only: [:new, :create, :destroy]
   resources :grades
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

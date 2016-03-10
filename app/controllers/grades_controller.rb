@@ -1,11 +1,24 @@
 class GradesController < ApplicationController
   before_action :authenticate
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_as_teacher?, only: [:new, :edit, :update, :destroy]
+
 
   # GET /grades
   # GET /grades.json
   def index
-    @grades = Grade.all
+    user_id = session[:user_id]
+    user_type = session[:user_type]
+    if session[:user_type] == "Teacher"
+      @grades = Grade.all
+    elsif session[:user_type] == "Student"
+      @grades = Grade.where(student_id: user_id)
+    elsif session[:user_type] == "Parent"
+      parent = Parent.find(user_id)
+      @grades = Grade.where(student_id: parent.student_id)
+    else
+      redirect_to root_path, notice: "jf;af;djf"
+    end
   end
 
   # GET /grades/1
@@ -15,7 +28,7 @@ class GradesController < ApplicationController
 
   # GET /grades/new
   def new
-    @grade = Grade.new
+    @grade = Grade.new(:student_id=>params[:student_id])
   end
 
   # GET /grades/1/edit
@@ -25,30 +38,23 @@ class GradesController < ApplicationController
   # POST /grades
   # POST /grades.json
   def create
-    @grade = Grade.new(grade_params)
 
-    respond_to do |format|
-      if @grade.save
-        format.html { redirect_to @grade, notice: 'Grade was successfully created.' }
-        format.json { render :show, status: :created, location: @grade }
-      else
-        format.html { render :new }
-        format.json { render json: @grade.errors, status: :unprocessable_entity }
-      end
+    @grade = Grade.new(grade_params)
+    if @grade.save
+      redirect_to @grade, notice: 'Grade was successfully created.'
+    else
+      render :new
     end
   end
+
 
   # PATCH/PUT /grades/1
   # PATCH/PUT /grades/1.json
   def update
-    respond_to do |format|
-      if @grade.update(grade_params)
-        format.html { redirect_to @grade, notice: 'Grade was successfully updated.' }
-        format.json { render :show, status: :ok, location: @grade }
-      else
-        format.html { render :edit }
-        format.json { render json: @grade.errors, status: :unprocessable_entity }
-      end
+    if @grade.update(grade_params)
+      redirect_to @grade, notice: 'Grade was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -56,10 +62,7 @@ class GradesController < ApplicationController
   # DELETE /grades/1.json
   def destroy
     @grade.destroy
-    respond_to do |format|
-      format.html { redirect_to grades_url, notice: 'Grade was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to grades_url, notice: 'Grade was successfully destroyed.'
   end
 
   private

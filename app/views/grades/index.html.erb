@@ -28,5 +28,8 @@
 
 <br>
 
-<%= link_to 'New Grade', new_grade_path %>
+<% if session[:user_type] == "Teacher"%>
+  <%= link_to 'New Grade', new_grade_path %>
+<% end %>
 <p><%= link_to 'Logout', logout_path, method: :delete%></p>
+<p><%= link_to 'Back to dashboard', dashboard_show_path%></p>

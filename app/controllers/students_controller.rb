@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :destroy]
   before_action :authenticate
-  before_action :logged_in_as_teacher?
+  before_action :logged_in_as_teacher?, only: [:index, :show, :new, :create, :destroy]
   # before_action :student_is_mine?, only: [:show, :edit, :update, :destroy]
   # GET /students
   # GET /students.json
@@ -21,6 +21,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    @student = Student.find(params[:id])
   end
 
   # POST /students
@@ -37,6 +38,7 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
+    @student = Student.find(params[:id])
     if @student.update(student_params)
       redirect_to @student, notice: 'Student was successfully updated.'
     else

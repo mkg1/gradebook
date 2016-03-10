@@ -1,10 +1,20 @@
 class ParentsController < ApplicationController
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
   before_action :authenticate
+  before_action :logged_in_as_teacher?, only: [:new, :edit, :update, :destroy]
+
   # GET /parents
   # GET /parents.json
   def index
-    @parents = Parent.all
+    user_id = session[:user_id]
+    user_type = session[:user_type]
+    if session[:user_type] == "Teacher"
+      @parents = Parent.all
+    elsif session[:user_type] == "Student"
+      student = Student.find(user_id)
+      @parents = Parent.where(student_id: student.id)
+    end
+
   end
 
   # GET /parents/1

@@ -1,0 +1,23 @@
+<h1>Welcome to Bayside High School's Gradebook!</h1>
+<% if session[:user_type] == nil%>
+  <%= link_to "Click here to login", login_path%></br>
+<% else %>
+  <%= link_to "Click here to logout", logout_path, method: :delete%></br>
+<% end %>
+
+<% if session[:user_type] == "Teacher"%>
+  <%= link_to "Click here to view teacher info", teachers_path%></br>
+  <%= link_to "Click here to view class roster", students_path%></br>
+  <%= link_to "Click here to access the gradebook", grades_path%></br>
+  <%= link_to "Click here to view parents' info", parents_path%>
+<% elsif session[:user_type] == "Student"%>
+  <%user_id = session[:user_id]%>
+  <%= link_to "Click here to view your grades", grades_path%></br>
+  <%= link_to "Click here to view your parents' info", parents_path%></br>
+  <%= link_to "Click here to change your password", edit_student_path(user_id)%></br>
+
+<% elsif session[:user_type] == "Parent"%>
+  <%user_id = session[:user_id]%>
+  <%= link_to "Click here to view your child's grades", grades_path%></br>
+  <%= link_to "Click here to change your password", edit_parent_path(user_id)%></br>
+<% end %>

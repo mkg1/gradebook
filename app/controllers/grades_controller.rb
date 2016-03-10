@@ -17,7 +17,7 @@ class GradesController < ApplicationController
       parent = Parent.find(user_id)
       @grades = Grade.where(student_id: parent.student_id)
     else
-      redirect_to root_path, notice: "jf;af;djf"
+      redirect_to root_path, notice: "Sorry, you don't have permission to log in."
     end
   end
 

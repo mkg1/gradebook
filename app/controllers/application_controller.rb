@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, notice: "You do not have permission to access that page." unless session[:user_type] == "Teacher"
   end
 
+  def logged_in_as_self?
+    redirect_to root_path, notice: "You must be logged in as that user to view that page." unless session[:user_id] == user.id
+  end
+
+
 end

@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :destroy]
   before_action :authenticate
+  before_action :logged_in_as_self?
   before_action :logged_in_as_teacher?, only: [:index, :show, :new, :create, :destroy]
   # before_action :student_is_mine?, only: [:show, :edit, :update, :destroy]
   # GET /students
